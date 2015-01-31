@@ -12,181 +12,54 @@
 <body>
 <div class="row">
     <div class="container">
-    <div class="col-md-6 col-sm-offset-3">
+        <div class="col-md-6 col-sm-offset-3">
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="clientName">Client Name</label>
 
-                            minutes++;
-                        if (minutes >= 60) {
-                            minutes = 0;
-                            hours++;
-                        }
-                    }
+                <div class="col-sm-4">
+                    <input type="text" placeholder="Client Name" id="clientName" class="form-control" name="clientName">
+                </div>
 
-                    count();
-                }
+                <label class="col-sm-2 control-label" for="contactName">Contact Name</label>
 
-                //End stopwatch function
-
-                function count() {
-                    t = setTimeout(stopWatch, 1000); //Iterate the stopWatch function every second (realtime);
-
-                }
-
-                //End count function
-
-                if (timeOn != true)
-                    timeOn = true;
-                else
-                    timeOn = false;
-                //If clicked, set timeOn to true.  If clicked when checked, set it to false.
-
-                var date = new Date,
-                        day = date.getDate(),
-                        month = date.getMonth() + 1,
-                        year = date.getFullYear(),
-                        hour = date.getHours(),
-                        minute = date.getMinutes(),
-                        seconds = date.getSeconds(),
-                        ampm = hour > 12 ? "PM" : "AM";
-
-                hour = hour % 12;
-                hour = hour ? hour : 12; // zero = 12
-
-                minute = minute > 9 ? minute : "0" + minute;
-                seconds = seconds > 9 ? seconds : "0" + seconds;
-                hour = hour > 9 ? hour : "0" + hour;
-                var time = hour + ":" + minute + " " + ampm;
-                //Visual time display
-
-                if (timeOn === false) {
-                    $('#endTime').val(time);
-                    clearTimeout(t);
-                }
-                else {
-                    $('#startTime').val(time);
-                    second = seconds;
-                    count();
-                }
-            });
-            //End all time functions
-
-            $('#total').unbind('click').click(function () {
-                var totalTime = (hours ? (hours > 9 ? hours : "0" + hours) : "00") + ":" + (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00");
-                $('#totalTime').val(totalTime);
-
-                $("#timeTable").find('tbody')
-                        .append($('<tr>')
-                                .append($('<td>')
-                                        .text($('#clientName').val()))
-                                .append($('<td>')
-                                        .text($('#contactName').val()))
-                                .append($('<td>')
-                                        .text($('#startTime').val()))
-                                .append($('<td>')
-                                        .text($('#endTime').val()))
-                                .append($('<td>')
-                                        .text($('#totalTime').val()))
-                );
-
-                var data =
-                {
-                    clientname: $('#clientName').val(),
-                    contactname: $('#contactName').val(),
-                    starttime: $('#startTime').val(),
-                    endtime: $('#endTime').val(),
-                    totaltime: $('#totalTime').val(),
-                    entry: i //Place keeper for current entries (prevents overwriting)
-                };
-                i++;
-                localStorage["timeentry" + i] = JSON.stringify(data);
-
-                console.log('i update ='+i);
-                $('#clientName').val('')
-                $('#contactName').val('')
-                $('#startTime').val('')
-                $('#endTime').val('')
-                $('#totalTime').val('')
-
-                hours, second, minutes = 0;
-
-            });
-
-            //icon.Click
-
-            window.onbeforeunload = function (event) {
-                var message = "Your data will not be saved if you close now.  Are you sure?";
-                if (typeof event == 'undefined') {
-                    event = window.event;
-                }
-                if (event) {
-                    event.returnValue = message;
-                }
-                return message;
-            }
-        });
-    </script>
-   
-</head>
-<body>
-<div class="row">
-    <div class="col-md-4 col-md-offset-4">
-        <div class="form-group">
-            <label class="col-sm-2 control-label" for="clientName">Client Name</label>
-
-            <div class="col-sm-4">
-                <input type="text" placeholder="Client Name" id="clientName" class="form-control" name="clientName">
+                <div class="col-sm-4">
+                    <input type="text" placeholder="Contact Name" id="contactName" class="form-control" name="contactName">
+                </div>
             </div>
-
-            <label class="col-sm-2 control-label" for="contactName">Contact Name</label>
-
-            <div class="col-sm-4">
-                <input type="text" placeholder="Contact Name" id="contactName" class="form-control" name="contactName">
-            </div>
-        </div>
-        <br/>
-
-        <div class="form-group">
             <br/>
+
+            <div class="form-group">
+                <br/>
+                <br/>
+                <label class="col-sm-2 control-label" for="startTime">Start Time</label>
+
+                <div class="col-sm-4">
+                    <input type="text" placeholder="12:00" class="form-control" id="startTime" name="startTime">
+                </div>
+                <label class="col-sm-2 control-label" for="endTime">End Time</label>
+
+                <div class="col-sm-4">
+                    <input type="text" placeholder="1:00" class="form-control" id="endTime" name="endTime">
+                </div>
+            </div>
+            <br>
+            <br>
+
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="totalTime">Total Time</label>
+
+                <div class="col-sm-4">
+                    <input type="text" placeholder="00:00" class="form-control" id="totalTime" name="totalTime">
+                </div>
+                <div class="col-sm-4">
+                    <button class="glyphicon glyphicon-off" data-toggle="tooltip" data-placement="top" title="ON" id="icon"></button>
+                    <button type="button" class="btn btn-primary" id="total">Save Time</button>
+                </div>
+            </div>
             <br/>
-            <label class="col-sm-2 control-label" for="startTime">Start Time</label>
-
-            <div class="col-sm-4">
-                <input type="text" placeholder="12:00" class="form-control" id="startTime" name="startTime">
-            </div>
-            <label class="col-sm-2 control-label" for="endTime">End Time</label>
-
-            <div class="col-sm-4">
-                <input type="text" placeholder="1:00" class="form-control" id="endTime" name="endTime">
-            </div>
         </div>
-        <br>
-        <br>
-
-
-
-        <div class="form-group">
-
-        <button class="glyphicon glyphicon-off" id="icon"></button>
-
-        <button type="button" class="btn btn-default" id="total">Save Time</button>
-
-        <label class="col-sm-2 control-label" for="totalTime">Total Time</label>
-
-        <div class="col-sm-4">
-            <input type="text" placeholder="00:00" class="form-control" id="totalTime" name="totalTime">
-        </div>
-
-         <div class="col-sm-4">
-            <button class="glyphicon glyphicon-off" data-toggle="tooltip" data-placement="top" title="ON" id="icon"></button>
-            <button type="button" class="btn btn-primary" id="total">Save Time</button>
-           </div>
-        </div>
-        <br/>
     </div>
-    </div>
-
-        <br/>
-    </div>
-
 </div>
 <br/>
 <br/>
@@ -195,38 +68,29 @@
 <div class="container">
     <div class="col-md-8 col-md-offset-2">
         <hr/>
-<hr/>
-<div class="container">
+        <table class="table table-striped" id="timeTable">
+            <thead>
+            <tr>
+                <th>Client Name</th>
 
-    <table class="table table-striped" id="timeTable">
-        <thead>
-        <tr>
-            <th>Client Name</th>
+                <th>Contact Name</th>
 
-            <th>Contact Name</th>
+                <th>Start Time</th>
 
-            <th>Start Time</th>
+                <th>End TIme</th>
 
-            <th>End TIme</th>
+                <th>Total Time</th>
 
-            <th>Total Time</th>
+                <th>Delete</th>
+            </tr>
+            </thead>
 
+            <tbody>
 
-            <th>Delete</th>
-
-        </tr>
-        </thead>
-
-        <tbody>
-
-        </tbody>
-    </table>
-
+            </tbody>
+        </table>
     </div>
 </div>
 <script src="js/app.js"></script>
-
-</div>
-
 </body>
 </html>
