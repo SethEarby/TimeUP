@@ -1,0 +1,18 @@
+#icon {
+     padding: 10px;
+     background-color: #325d88;
+     color: #fff;
+     text-decoration: none;
+     border: 0;
+ }
+.btn
+{
+
+    padding: 0px 6px 0px 6px;
+}
+.btn-primary
+{
+    margin-bottom: 3px;
+    padding: 6px;
+}
+
