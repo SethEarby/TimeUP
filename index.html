@@ -14,36 +14,42 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-
-
             var hours = 0, minutes = 0, second = 0, t;
             var timeOn = false;
-            for (var min = 0; min < localStorage.length; min++) {
-                var data = JSON.parse(localStorage.getItem('member' + min) || {})
+            var i = localStorage.length;
 
-                $("#dataTable").find('tbody')
+
+            for (var min = 1; min < localStorage.length + 1; min++) {
+
+                try {
+                    var ret = localStorage.getItem('timeentry' + min);
+                }
+                catch (err) {
+                    alert("Error retreiving time entry.");
+                }
+                JSON.stringify(ret || {});
+                var data = JSON.parse(ret);
+
+                console.log('i =' + i);
+                $("#timeTable").find('tbody')
                         .append($('<tr>')
-                                .append($('<td>')
-                                        .text(data.contactName))
                                 .append($('<td>')
                                         .text(data.clientname))
                                 .append($('<td>')
-                                        .text(data.startTime))
+                                        .text(data.contactname))
                                 .append($('<td>')
-                                        .text(data.endTime))
+                                        .text(data.starttime))
                                 .append($('<td>')
-                                        .text(data.totalTime))
-                        )
+                                        .text(data.endtime))
+                                .append($('<td>')
+                                        .text(data.totaltime))
+                );
 
             }
 
-
-        });
-
             $('#icon').click(function () {
-
+                console.log('click');
                 function stopWatch() {
-
                     second++;
                     if (second >= 60) {
                         second = 0;
@@ -53,7 +59,6 @@
                             hours++;
                         }
                     }
-
 
                     count();
                 }
@@ -100,65 +105,63 @@
                     second = seconds;
                     count();
                 }
-                //End all time functions
-            var i = 0;
-                $('#total').unbind('click').click(function () {
-                    var totalTime = (hours ? (hours > 9 ? hours : "0" + hours) : "00") + ":" + (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00");
-                    console.log(minutes);
-                    console.log(totalTime);
-                    $('#totalTime').val(totalTime);
+            });
+            //End all time functions
 
-                    $("#timeTable").find('tbody')
-                            .append($('<tr>')
-                                    .append($('<td>')
-                                            .text($('#clientName').val()))
-                                    .append($('<td>')
-                                            .text($('#contactName').val()))
-                                    .append($('<td>')
-                                            .text($('#startTime').val()))
-                                    .append($('<td>')
-                                            .text($('#endTime').val()))
-                                    .append($('<td>')
-                                            .text($('#totalTime').val()))
-                    );
-                    var data =
-                    {
-                        clientname  :  $('#clientName').val(),
-                        contactname :  $('#contactName').val(),
-                        starttime   :  $('#startTime').val(),
-                        endtime     :  $('#endTime').val(),
-                        totaltime   :  $('#totalTIme').val(),
+            $('#total').unbind('click').click(function () {
+                var totalTime = (hours ? (hours > 9 ? hours : "0" + hours) : "00") + ":" + (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00");
+                $('#totalTime').val(totalTime);
 
-                    }
-                    localStorage["timeentry"+i] = JSON.stringify(data);
-                    i++;
+                $("#timeTable").find('tbody')
+                        .append($('<tr>')
+                                .append($('<td>')
+                                        .text($('#clientName').val()))
+                                .append($('<td>')
+                                        .text($('#contactName').val()))
+                                .append($('<td>')
+                                        .text($('#startTime').val()))
+                                .append($('<td>')
+                                        .text($('#endTime').val()))
+                                .append($('<td>')
+                                        .text($('#totalTime').val()))
+                );
 
-                    $('#clientName').val('')
-                    $('#contactName').val('')
-                    $('#startTime').val('')
-                    $('#endTime').val('')
-                    $('#totalTime').val('')
+                var data =
+                {
+                    clientname: $('#clientName').val(),
+                    contactname: $('#contactName').val(),
+                    starttime: $('#startTime').val(),
+                    endtime: $('#endTime').val(),
+                    totaltime: $('#totalTime').val(),
+                    entry: i //Place keeper for current entries (prevents overwriting)
+                };
+                i++;
+                localStorage["timeentry" + i] = JSON.stringify(data);
 
-                    hours, second, minutes = 0;
+                console.log('i update ='+i);
+                $('#clientName').val('')
+                $('#contactName').val('')
+                $('#startTime').val('')
+                $('#endTime').val('')
+                $('#totalTime').val('')
 
-                })
+                hours, second, minutes = 0;
 
             });
+
+            //icon.Click
+
+            window.onbeforeunload = function (event) {
+                var message = "Your data will not be saved if you close now.  Are you sure?";
+                if (typeof event == 'undefined') {
+                    event = window.event;
+                }
+                if (event) {
+                    event.returnValue = message;
+                }
+                return message;
+            }
         });
-        window.onbeforeunload = function (event) {
-            var message = "Your data will not be saved if you close now.  Are you sure?";
-            if (typeof event == 'undefined') {
-                event = window.event;
-            }
-            if (event) {
-                event.returnValue = message;
-            }
-            return message;
-        }
-        //        function savedata() {
-        //            localStorage.mydata = $('#timeTable').html();
-        //            alert('Data Saved!'); //This is not showing up
-        //        }
     </script>
     <style>#icon {
         padding: 10px;
