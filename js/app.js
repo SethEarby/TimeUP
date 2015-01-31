@@ -16,7 +16,7 @@ $(document).ready(function () {
 
 
     $(function () {
-        $('[data-toggle="tooltip"]').tooltip()
+        $('[data-toggle="tooltip"]').tooltip();
         $('[rel=tooltip]').tooltip({container: 'body'});
     }) //Bootstrap Data on
 
