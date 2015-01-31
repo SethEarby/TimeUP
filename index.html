@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css"/>
+    <script src="js/jquery2.0.0.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <!--Load resources | Application script at the bottom !-->
+    <title>Time Sheet</title>
+</head>
+<body>
+<div class="row">
+    <div class="container">
+    <div class="col-md-6 col-sm-offset-3">
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="clientName">Client Name</label>
+
+            <div class="col-sm-4">
+                <input type="text" placeholder="Client Name" id="clientName" class="form-control" name="clientName">
+            </div>
+
+            <label class="col-sm-2 control-label" for="contactName">Contact Name</label>
+
+            <div class="col-sm-4">
+                <input type="text" placeholder="Contact Name" id="contactName" class="form-control" name="contactName">
+            </div>
+        </div>
+        <br/>
+
+        <div class="form-group">
+            <br/>
+            <br/>
+            <label class="col-sm-2 control-label" for="startTime">Start Time</label>
+
+            <div class="col-sm-4">
+                <input type="text" placeholder="12:00" class="form-control" id="startTime" name="startTime">
+            </div>
+            <label class="col-sm-2 control-label" for="endTime">End Time</label>
+
+            <div class="col-sm-4">
+                <input type="text" placeholder="1:00" class="form-control" id="endTime" name="endTime">
+            </div>
+        </div>
+        <br>
+        <br>
+
+
+        <div class="form-group">
+        <label class="col-sm-2 control-label" for="totalTime">Total Time</label>
+
+        <div class="col-sm-4">
+            <input type="text" placeholder="00:00" class="form-control" id="totalTime" name="totalTime">
+        </div>
+         <div class="col-sm-4">
+            <button class="glyphicon glyphicon-off" data-toggle="tooltip" data-placement="top" title="ON" id="icon"></button>
+            <button type="button" class="btn btn-primary" id="total">Save Time</button>
+           </div>
+        </div>
+        <br/>
+    </div>
+    </div>
+</div>
+<br/>
+<br/>
+<br/>
+
+<div class="container">
+    <div class="col-md-8 col-md-offset-2">
+        <hr/>
+    <table class="table table-striped" id="timeTable">
+        <thead>
+        <tr>
+            <th>Client Name</th>
+
+            <th>Contact Name</th>
+
+            <th>Start Time</th>
+
+            <th>End TIme</th>
+
+            <th>Total Time</th>
+
+            <th>Delete</th>
+        </tr>
+        </thead>
+
+        <tbody>
+
+        </tbody>
+    </table>
+    </div>
+</div>
+<script src="js/app.js"></script>
+</body>
+</html>
