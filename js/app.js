@@ -1,37 +1,33 @@
-
 $(document).ready(function () {
     var hours = 0, minutes = 0, second = 0, t;
     var timeOn = false;
     var i = localStorage.length;
 
-    $(document).on('click', '#remove', function()
-    {
-        var cur = ($(this).parents('tr').index()+ 1);
-        $(this).parents('tr').remove();
-       // localStorage.removeItem('timeentry'+cur);
-        console.log(cur);
+    $(document).on('click', '#remove', function () {
+        var curRow = ($(this).parents('tr').index()); //Get current row number
+        $(this).parents('tr').remove(); //Delete the row visually
+        localStorage.removeItem(localStorage.key(curRow)); //Remove the data from the data storage
     });
-
-
-
 
     $(function () {
         $('[data-toggle="tooltip"]').tooltip();
         $('[rel=tooltip]').tooltip({container: 'body'});
-    }) //Bootstrap Data on
+    }) //Opt-in Icon tool tip
 
-    for (var min = 1; min < localStorage.length + 1; min++) {
-          try {
-            var ret = localStorage.getItem('timeentry' + min);
+
+    for (var min = 1; min < i + 1; min++) { //For the min of 1 loop through the localStorage
+        try {
+            var key = localStorage.key(min - 1); //Retrieve the key starting at index[0]
+            var ret = localStorage.getItem(key);
         }
         catch (err) {
-            alert("Error retrieving time entry.");
+            alert("Error retrieving time data"); //Halt and catch fire
         }
-        JSON.stringify(ret || {});
+        JSON.stringify(ret || {});  // Encode as a string
         var data = JSON.parse(ret);
 
         $("#timeTable").find('tbody')
-            .append($('<tr>', {id:"row"+min})
+            .append($('<tr>', {id: "row" + min})
                 .append($('<td>')
                     .text(data.clientname))
                 .append($('<td>')
@@ -43,15 +39,14 @@ $(document).ready(function () {
                 .append($('<td>')
                     .text(data.totaltime))
                 .append($('<td>')
-                .append($("<button>", { type: "button", class: "btn btn-danger", id:"remove"})
-                    .text('x')))
-
+                    .append($("<button>", { type: "button", class: "btn btn-danger", id: "remove"})
+                        .text('x')))
+            //Import the data to table
         );
 
     }
-
+    //Stopwatch function
     $('#icon').click(function () {
-        console.log('click');
         function stopWatch() {
             second++;
             if (second >= 60) {
@@ -70,7 +65,6 @@ $(document).ready(function () {
 
         function count() {
             t = setTimeout(stopWatch, 1000); //Iterate the stopWatch function every second (realtime);
-
         }
 
         //End count function
@@ -102,18 +96,21 @@ $(document).ready(function () {
         if (timeOn === false) {
             $('#endTime').val(time);
             clearTimeout(t);
+            var totalTime = (hours ? (hours > 9 ? hours : "0" + hours) : "00") + ":" + (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00");
+            $('#totalTime').val(totalTime);
+            console.log('timespent = '+ totalTime);
         }
         else {
             $('#startTime').val(time);
             second = seconds;
             count();
         }
+
     });
     //End all time functions
 
     $('#total').unbind('click').click(function () {
-        var totalTime = (hours ? (hours > 9 ? hours : "0" + hours) : "00") + ":" + (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00");
-        $('#totalTime').val(totalTime);
+
 
         $("#timeTable").find('tbody')
             .append($('<tr>')
@@ -128,9 +125,8 @@ $(document).ready(function () {
                 .append($('<td>')
                     .text($('#totalTime').val()))
                 .append($('<td>')
-                    .append($("<button>", { type: "button", class: "btn btn-danger", id:"remove"})
-                        .text('x')))
-
+                    .append($("<button>", { type: "button", class: "btn btn-danger", id: "remove"})
+                        .text('X')))
         );
 
         var data =
@@ -144,8 +140,6 @@ $(document).ready(function () {
         };
         i++;
         localStorage["timeentry" + i] = JSON.stringify(data);
-
-        console.log('i update ='+i);
         $('#clientName').val('')
         $('#contactName').val('')
         $('#startTime').val('')
@@ -156,16 +150,5 @@ $(document).ready(function () {
 
     });
 
-    //icon.Click
 
-//    window.onbeforeunload = function (event) {
-//        var message = "Your data will not be saved if you close now.  Are you sure?";
-//        if (typeof event == 'undefined') {
-//            event = window.event;
-//        }
-//        if (event) {
-//            event.returnValue = message;
-//        }
-//        return message;
-//    }
 });
