@@ -4,7 +4,24 @@
      color: #fff;
      text-decoration: none;
      border: 0;
+    width: 83px;
  }
+#total, #clear
+{
+    padding: 6px;
+    float: right;
+    margin-bottom: 3px;
+
+    margin-top: 2px;
+    margin-left: 130px;
+}
+#clear
+{
+    padding: 6px;
+    float: left;
+    width: 85px;
+    margin-left: 0;
+}
 .btn
 {
 
@@ -15,4 +32,4 @@
     margin-bottom: 3px;
     padding: 6px;
 }
-
+.row {margin-top: 15px;}

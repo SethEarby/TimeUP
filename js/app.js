@@ -9,10 +9,34 @@ $(document).ready(function () {
         localStorage.removeItem(localStorage.key(curRow)); //Remove the data from the data storage
     });
 
+    $(document).on('click', '#clear', function () {
+        $('#clientName').val('');
+        $('#contactName').val('');
+        $('#startTime').val('');
+        $('#endTime').val('');
+        $('#totalTime').val('');
+        $('#desc').val('');
+        timeOn = false;
+         hours = 0, minutes = 0, second = 0, t;
+    });
     $(function () {
         $('[data-toggle="tooltip"]').tooltip();
         $('[rel=tooltip]').tooltip({container: 'body'});
     }) //Opt-in Icon tool tip
+
+    $('body').on("click", ".foo", function() {
+
+        $(this).addClass('fadeOut');
+
+        $('.fadeOut').one('transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd', function() {
+
+            console.log('why the fuck is this not firing!');
+
+        });
+
+    });
+
+
 
 
     for (var min = 1; min < i + 1; min++) { //For the min of 1 loop through the localStorage
@@ -38,6 +62,8 @@ $(document).ready(function () {
                     .text(data.endtime))
                 .append($('<td>')
                     .text(data.totaltime))
+                .append($('<td>')
+                    .text(data.desc))
                 .append($('<td>')
                     .append($("<button>", { type: "button", class: "btn btn-danger", id: "remove"})
                         .text('x')))
@@ -125,6 +151,8 @@ $(document).ready(function () {
                 .append($('<td>')
                     .text($('#totalTime').val()))
                 .append($('<td>')
+                    .text($('#desc').val()))
+                .append($('<td>')
                     .append($("<button>", { type: "button", class: "btn btn-danger", id: "remove"})
                         .text('X')))
         );
@@ -136,15 +164,17 @@ $(document).ready(function () {
             starttime: $('#startTime').val(),
             endtime: $('#endTime').val(),
             totaltime: $('#totalTime').val(),
+            desc: $('#desc').val(),
             entry: i //Place keeper for current entries (prevents overwriting)
         };
         i++;
         localStorage["timeentry" + i] = JSON.stringify(data);
-        $('#clientName').val('')
-        $('#contactName').val('')
-        $('#startTime').val('')
-        $('#endTime').val('')
-        $('#totalTime').val('')
+        $('#clientName').val('');
+        $('#contactName').val('');
+        $('#startTime').val('');
+        $('#endTime').val('');
+        $('#totalTime').val('');
+        $('#desc').val('');
 
         hours, second, minutes = 0;
 

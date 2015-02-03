@@ -10,6 +10,12 @@
     <title>Time Sheet</title>
 </head>
 <body>
+<nav class="navbar navbar-default navbar-fixed-top">
+    <a class="navbar-brand" href="#">Time Sheet</a>
+</nav>
+<br/>
+<br/>
+
 <div class="row">
     <div class="container">
         <div class="col-md-6 col-sm-offset-3">
@@ -23,7 +29,8 @@
                 <label class="col-sm-2 control-label" for="contactName">Contact Name</label>
 
                 <div class="col-sm-4">
-                    <input type="text" placeholder="Contact Name" id="contactName" class="form-control" name="contactName">
+                    <input type="text" placeholder="Contact Name" id="contactName" class="form-control"
+                           name="contactName">
                 </div>
             </div>
             <br/>
@@ -45,21 +52,37 @@
             <br>
             <br>
 
-
             <div class="form-group">
                 <label class="col-sm-2 control-label" for="totalTime">Total Time</label>
 
                 <div class="col-sm-4">
                     <input type="text" placeholder="00:00" class="form-control" id="totalTime" name="totalTime">
                 </div>
+                <label class="col-sm-2 control-label" for="desc">Description</label>
+
                 <div class="col-sm-4">
-                    <button class="glyphicon glyphicon-off" data-toggle="tooltip" data-placement="top" title="ON" id="icon"></button>
-                    <button type="button" class="btn btn-primary" id="total">Save Time</button>
+                    <input type="text" placeholder="Description" class="form-control" id="desc" name="desc">
                 </div>
             </div>
             <br/>
+
+            <div class="form-group">
+                <div class="col-sm-4 col-sm-offset-2">
+                    <button class="glyphicon glyphicon-off" data-toggle="tooltip" data-placement="top" title="ON"
+                            id="icon"></button>
+
+                </div>
+                <div class="col-sm-2">
+                    <button  type="button" class="btn btn-primary" id="total">Save Time</button>
+                </div>
+                <div class="col-sm-2">
+                    <button  type="button" class="btn btn-success" id="clear">Clear</button>
+                </div>
+            </div>
         </div>
     </div>
+</div>
+</div>
 </div>
 <br/>
 <br/>
@@ -77,9 +100,11 @@
 
                 <th>Start Time</th>
 
-                <th>End TIme</th>
+                <th>End Time</th>
 
                 <th>Total Time</th>
+
+                <th>Description</th>
 
                 <th>Delete</th>
             </tr>
