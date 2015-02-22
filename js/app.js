@@ -17,29 +17,32 @@ $(document).ready(function () {
         $('#totalTime').val('');
         $('#desc').val('');
         timeOn = false;
-         hours = 0, minutes = 0, second = 0, t;
+        hours = 0, minutes = 0, second = 0, t;
+
+    });
+
+    $(document).on('click', '#clearAll', function () {
+        var keyrow = 0;
+        $('#clientName').val('');
+        $('#contactName').val('');
+        $('#startTime').val('');
+        $('#endTime').val('');
+        $('#totalTime').val('');
+        $('#desc').val('');
+        while (localStorage.length != 0) {
+            localStorage.removeItem(localStorage.key(keyrow));
+            keyrow++;
+        }
+        $("#timeTable tbody tr").remove();
+        timeOn = false;
+        hours = 0, minutes = 0, second = 0, t;
     });
     $(function () {
         $('[data-toggle="tooltip"]').tooltip();
         $('[rel=tooltip]').tooltip({container: 'body'});
     }) //Opt-in Icon tool tip
 
-    $('body').on("click", ".foo", function() {
-
-        $(this).addClass('fadeOut');
-
-        $('.fadeOut').one('transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd', function() {
-
-            console.log('why the fuck is this not firing!');
-
-        });
-
-    });
-
-
-
-
-    for (var min = 1; min < i + 1; min++) { //For the min of 1 loop through the localStorage
+    for (var min = 1; min < i + 1; min++) { //For the min of 1, loop through the localStorage
         try {
             var key = localStorage.key(min - 1); //Retrieve the key starting at index[0]
             var ret = localStorage.getItem(key);
@@ -73,6 +76,7 @@ $(document).ready(function () {
     }
     //Stopwatch function
     $('#icon').click(function () {
+
         function stopWatch() {
             second++;
             if (second >= 60) {
@@ -120,16 +124,20 @@ $(document).ready(function () {
         //Visual time display
 
         if (timeOn === false) {
+            $(this).text('Start');
             $('#endTime').val(time);
             clearTimeout(t);
             var totalTime = (hours ? (hours > 9 ? hours : "0" + hours) : "00") + ":" + (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00");
             $('#totalTime').val(totalTime);
-            console.log('timespent = '+ totalTime);
+            console.log('timespent = ' + totalTime);
         }
         else {
+            $(this).text('Stop');
             $('#startTime').val(time);
             second = seconds;
             count();
+          //Coming back and trying to this made me understand I need to clarify.  If timeOn equals true start the timer.  Which happens at the else statement.
+
         }
 
     });

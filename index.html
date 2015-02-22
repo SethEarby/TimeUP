@@ -4,6 +4,10 @@
     <meta charset="utf-8"/>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css"/>
+    <link rel="apple-touch-icon" sizes="120x120" href="images/apple-touch-icon-120x120.png">
+    <link rel="icon" type="image/png" href="images/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="images/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="images/favicon-16x16.png" sizes="16x16">
     <script src="js/jquery2.0.0.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <!--Load resources | Application script at the bottom !-->
@@ -12,6 +16,9 @@
 <body>
 <nav class="navbar navbar-default navbar-fixed-top">
     <a class="navbar-brand" href="#">Time Sheet</a>
+    <ul class="nav navbar-nav navbar-right">
+        <li><a id="clearAll" href="#">Clear</a></li>
+        </ul>
 </nav>
 <br/>
 <br/>
@@ -68,8 +75,8 @@
 
             <div class="form-group">
                 <div class="col-sm-4 col-sm-offset-2">
-                    <button class="glyphicon glyphicon-off" data-toggle="tooltip" data-placement="top" title="ON"
-                            id="icon"></button>
+                    <button  data-toggle="tooltip" data-placement="top" title="Start"
+                            id="icon">Start</button>
 
                 </div>
                 <div class="col-sm-2">

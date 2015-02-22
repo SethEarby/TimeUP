@@ -1,5 +1,5 @@
 #icon {
-     padding: 10px;
+     padding: 8px;
      background-color: #325d88;
      color: #fff;
      text-decoration: none;
@@ -33,3 +33,7 @@
     padding: 6px;
 }
 .row {margin-top: 15px;}
+.navbar-default .navbar-nav>li>a
+{
+    padding-right: 25px
+}
