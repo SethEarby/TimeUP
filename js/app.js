@@ -8,7 +8,13 @@ $(document).ready(function () {
         $(this).parents('tr').remove(); //Delete the row visually
         localStorage.removeItem(localStorage.key(curRow)); //Remove the data from the data storage
     });
+    $(document).keypress(function(e) {
+        if(e.which == 13 ) {
 
+            $('#icon').trigger('click');
+
+        }
+    });
     $(document).on('click', '#clear', function () {
         $('#clientName').val('');
         $('#contactName').val('');
@@ -22,17 +28,13 @@ $(document).ready(function () {
     });
 
     $(document).on('click', '#clearAll', function () {
-        var keyrow = 0;
         $('#clientName').val('');
         $('#contactName').val('');
         $('#startTime').val('');
         $('#endTime').val('');
         $('#totalTime').val('');
         $('#desc').val('');
-        while (localStorage.length != 0) {
-            localStorage.removeItem(localStorage.key(keyrow));
-            keyrow++;
-        }
+       localStorage.clear();
         $("#timeTable tbody tr").remove();
         timeOn = false;
         hours = 0, minutes = 0, second = 0, t;
@@ -74,6 +76,7 @@ $(document).ready(function () {
         );
 
     }
+
     //Stopwatch function
     $('#icon').click(function () {
 
@@ -145,7 +148,7 @@ $(document).ready(function () {
 
     $('#total').unbind('click').click(function () {
 
-
+        $('#icon').focus();
         $("#timeTable").find('tbody')
             .append($('<tr>')
                 .append($('<td>')
